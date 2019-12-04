@@ -2,15 +2,12 @@ import dash
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 import map_component as mc
-import dash_app.utils as utils
+import utils as utils
 
 from dash.dependencies import Input, Output
-from layout import navbar, body
 from layout import navbar, body, map_component
-from inputs import inputs
 from activities_table import create_table
 from placesdata import PlacesData
-from request_processing.geolocation import Geolocation
 
 from request_processing.geolocation import Geolocation
 
@@ -21,12 +18,6 @@ app.layout = html.Div([navbar, body, map_component])
 test_table = {"swimming": ["1", "10"], "fitness": ["2"]}
 
 data = PlacesData()
-
-# @app.callback(Output("item-clicks", "children"), [Input("dropdown-button", "n_clicks")])
-# def count_clicks(n):
-#     if n:
-#         return f"Button clicked {n} times."
-#     return "Button not clicked yet."
 
 
 @app.callback(

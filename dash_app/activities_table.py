@@ -1,13 +1,9 @@
-import dash_table
 import dash_bootstrap_components as dbc
 import dash_html_components as html
 import utils
-import pandas as pd
 
 from typing import Tuple
 from placesdata import Place
-
-from request_processing.geolocation import Geolocation
 
 
 def get_data() -> Tuple[dict, dict]:
