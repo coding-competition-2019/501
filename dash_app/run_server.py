@@ -7,7 +7,7 @@ import utils as utils
 
 from dash.dependencies import Input, Output
 from layout import navbar, body
-from activities_table import create_table
+from activities_table import create_table, create_cards
 from placesdata import PlacesData
 
 from request_processing.geolocation import Geolocation
@@ -38,12 +38,12 @@ def update_by_input(value):
             places.append(place)
 
         return (
-            create_table(places, value, {"lat": lat, "lon": lon}),
+            create_cards(places, value, {"lat": lat, "lon": lon}),
             mc.build_figure({"lat": lat, "lon": lon}),
         )
     else:
         places = []
-        return create_table(places, value, {"lat": [], "lon": []}), mc.build_figure()
+        return create_cards(places,value, None), mc.build_figure()
 
 
 if __name__ == "__main__":

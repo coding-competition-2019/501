@@ -30,6 +30,9 @@ class Place:
         self.city = city
         self.activities = activity
 
+    def get_address(self):
+        return ' '.join([self.street, self.city])
+
 
 if __name__ == '__main__':
     # kinda unit test
