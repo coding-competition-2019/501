@@ -7,6 +7,47 @@ from typing import Tuple
 from placesdata import Place
 
 
+def create_card(name, address, distance, route_link):
+    return dbc.Row([
+        dbc.Col(
+            dbc.Card(
+                dbc.CardBody(
+                    [
+                        html.H4(name, className="card-title"),
+                        html.P(address),
+                        html.H6(f"Distance: {distance} km"),
+                        dbc.CardLink('Directions',
+                                     href=route_link)
+                    ]
+                )
+            ))])
+
+
+def creat_empty_card():
+    return dbc.Row([
+        dbc.Col(
+            dbc.Card(
+                dbc.CardBody(
+                )
+            ))])
+
+
+def create_cards(places, activity, coordinates):
+    cards = list()
+    geolocation = Geolocation(find_me=True)
+    if len(places) != 0:
+        for index, place in enumerate(places):
+            coordinate = (coordinates["lat"][index], coordinates["lon"][index])
+            distance = geolocation.get_distance(coordinate)
+            route_link = geolocation.get_navigations(coordinate)
+            distance = round(distance / 1000, 2)
+            cards.append(create_card(place.name, place.get_address(), distance,
+                                     route_link=route_link))
+        return html.Div(cards)
+    else:
+        return html.Div([creat_empty_card()])
+
+
 def create_table(places, activity: str, coordinates) -> dbc.Table:
     geolocation = Geolocation(find_me=True)
 
