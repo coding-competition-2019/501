@@ -57,18 +57,23 @@ def create_table(activity: str) -> dbc.Table:
     if activity in all_places["activity_list"]:
 
         for index, value in enumerate(all_places["places"][activity]):
+
+            activities = data[value][0]
+            place = data[value][1]
+
             ###
-            # coordinates = geolocation.get_place(data[value][1])
+            # coordinates = geolocation.get_place(place)
             # distance = geolocation.get_distance(coordinates)
             distance = 10000
             ###
+
             table_data.append(
                 html.Tr(
                     [
-                        html.Td(", ".join(data[value][0])),
-                        html.Td(data[value][1].name),
-                        html.Td(data[value][1].street),
-                        html.Td(data[value][1].url),
+                        html.Td(", ".join(activities)),
+                        html.Td(place.name),
+                        html.Td(", ".join([place.street, place.city])),
+                        html.Td(place.url),
                         html.Td(f"{round(distance/1000,2)}km"),
                     ]
                 )
