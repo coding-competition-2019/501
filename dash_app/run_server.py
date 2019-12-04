@@ -12,6 +12,9 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 app.layout = html.Div([navbar, inputs, dropdown, body])
 
 
+test_table = {"swimming": ["1", "10"], "fitness": ["2"]}
+
+
 @app.callback(Output("item-clicks", "children"), [Input("dropdown-button", "n_clicks")])
 def count_clicks(n):
     if n:
@@ -23,7 +26,7 @@ def count_clicks(n):
     Output("activities-output", "children"), [Input("activities-input", "value")]
 )
 def output_text(value):
-    return create_table(value)
+    return create_table(test_table, value)
 
 
 if __name__ == "__main__":
