@@ -21,31 +21,26 @@ data = PlacesData()
 
 
 @app.callback(
-    Output("activities-output", "children"), [Input("activities-input", "value")]
-)
-def output_text(value):
-    return create_table(value)
-
-
-@app.callback(
-    Output(mc.MAP_ID, 'figure'),
+    [Output("activities-output", "children"), Output(mc.MAP_ID, 'figure')],
     [Input("activities-input", "value")]
 )
-def _update_map(value):
+def update_by_input(value):
     if utils.check_activity_matches_existing(data.get_activity_list(), value):
         geo = Geolocation(False)
         lat = list()
         lon = list()
-        for n, place in enumerate(data.get_places_by_activity(value)):
+        places = list()
+        for n, place in enumerate(data.get_places_by_activity(value, limit=5)):
             la, lo = geo.get_place(place)
             lat.append(la)
             lon.append(lo)
-            if n > 5:
-                break
+            places.append(place)
 
-        return mc.build_figure({'lat': lat, 'lon': lon})
+        return create_table(places, value), mc.build_figure(
+            {'lat': lat, 'lon': lon})
     else:
-        return mc.build_figure()
+        places = []
+        return create_table(places, value), mc.build_figure()
 
 
 if __name__ == "__main__":

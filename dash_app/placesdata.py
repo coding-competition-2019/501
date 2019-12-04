@@ -9,23 +9,26 @@ class PlacesData:
     def get_activity_list(self):
         return self.transformed_data['activity_list']
 
-    def get_places_by_activity(self, activity):
+    def get_places_by_activity(self, activity, limit=10):
         places = list()
-        for id in self.transformed_data['places'][activity]:
+        for ind, id in enumerate(self.transformed_data['places'][activity]):
             p = self.data['places'][id]
             places.append(Place(p['name'], p['url'], p['address']['street'],
                                 p['address']['zipCode'],
-                                p['address']['city']))
+                                p['address']['city'], p['activities']))
+            if ind >= limit - 1:
+                break
         return places
 
 
 class Place:
-    def __init__(self, name, url, street, zipcode, city):
+    def __init__(self, name, url, street, zipcode, city, activity):
         self.name = name
         self.url = url
         self.street = street
         self.zipcode = zipcode
         self.city = city
+        self.activities = activity
 
 
 if __name__ == '__main__':

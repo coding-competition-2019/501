@@ -6,28 +6,7 @@ from typing import Tuple
 from placesdata import Place
 
 
-def get_data() -> Tuple[dict, dict]:
-    data = utils.read_json("data/places.json")
-    data = [
-        (
-            val["activities"],
-            Place(
-                val["name"],
-                val["url"],
-                val["address"]["street"],
-                val["address"]["zipCode"],
-                val["address"]["city"],
-            ),
-        )
-        for val in data["places"]
-    ]
-    places = utils.read_json("data/places_transformed.json")
-    return data, places
-
-
-def create_table(activity: str) -> dbc.Table:
-
-    data, all_places = get_data()
+def create_table(places, activity: str) -> dbc.Table:
     # geolocation = Geolocation(find_me=True)
 
     if activity:
@@ -50,15 +29,13 @@ def create_table(activity: str) -> dbc.Table:
     ]
 
     table_data: list = []
-    if activity in all_places["activity_list"]:
+    if len(places) != 0:
 
-        for index, value in enumerate(all_places["places"][activity]):
-
-            activities = data[value][0]
-            place = data[value][1]
+        for index, place in enumerate(places):
+            activities = place.activities
 
             ###
-            # coordinates = geolocation.get_place(place)
+            # coordinates = coordinates['']
             # distance = geolocation.get_distance(coordinates)
             distance = 10000
             ###
@@ -70,12 +47,10 @@ def create_table(activity: str) -> dbc.Table:
                         html.Td(place.name),
                         html.Td(", ".join([place.street, place.city])),
                         html.Td(place.url),
-                        html.Td(f"{round(distance/1000,2)}km"),
+                        html.Td(f"{round(distance / 1000, 2)}km"),
                     ]
                 )
             )
-            if index == 1:
-                break
     else:
         table_data.extend([html.Td("") for _ in range(5)])
 
