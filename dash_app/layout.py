@@ -7,17 +7,10 @@ from inputs import inputs
 
 navbar = dbc.NavbarSimple(
     children=[
-        dbc.NavItem(dbc.NavLink("Link", href="#")),
-        dbc.DropdownMenu(
-            nav=True,
-            in_navbar=True,
-            label="Menu",
-            children=[
-                dbc.DropdownMenuItem("Entry 1"),
-                dbc.DropdownMenuItem("Entry 2"),
-                dbc.DropdownMenuItem(divider=True),
-                dbc.DropdownMenuItem("Entry 3"),
-            ],
+        dbc.NavItem(
+            dbc.NavLink(
+                "501 team GitHub", href="https://github.com/coding-competition-2019/501"
+            )
         ),
     ],
     brand="501 Activities APP",
@@ -35,9 +28,70 @@ body = html.Div(
             ]
         ),
         dbc.Row(
-            [dbc.Col(html.Div(inputs)), dbc.Col(html.Div(mc.create_map_component())),]
+            [dbc.Col(html.Div(inputs)), dbc.Col(html.Div(mc.create_map_component()))]
         ),
-        # dbc.Row(),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.H2("3 ML engineers and one web app"),
+                        html.P(
+                            " Thank you McKinsey coding competition for giving us an opprotunity to participate in this contest!"
+                        ),
+                    ],
+                ),
+            ]
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    dbc.Card(
+                        dbc.CardBody(
+                            [
+                                html.H4("Vladislav Belov", className="card-title"),
+                                html.H6("ML Engineer", className="card-subtitle"),
+                                html.P("", className="card-text",),
+                                dbc.CardLink(
+                                    "GitHub link",
+                                    href="https://github.com/salisaresama",
+                                ),
+                            ]
+                        ),
+                        style={"width": "18rem"},
+                    )
+                ),
+                dbc.Col(
+                    dbc.Card(
+                        dbc.CardBody(
+                            [
+                                html.H4("Marko Sahan", className="card-title"),
+                                html.H6("ML Engineer", className="card-subtitle"),
+                                html.P("", className="card-text",),
+                                dbc.CardLink(
+                                    "GitHub link", href="https://github.com/sahanmar",
+                                ),
+                            ]
+                        ),
+                        style={"width": "18rem"},
+                    )
+                ),
+                dbc.Col(
+                    dbc.Card(
+                        dbc.CardBody(
+                            [
+                                html.H4("Andrii Zakharchenko", className="card-title"),
+                                html.H6("ML Engineer", className="card-subtitle"),
+                                html.P("", className="card-text",),
+                                dbc.CardLink(
+                                    "GitHub link", href="https://github.com/ABlack-git",
+                                ),
+                            ]
+                        ),
+                        style={"width": "18rem"},
+                    )
+                ),
+            ]
+        ),
     ],
     className="mt-4",
 )
