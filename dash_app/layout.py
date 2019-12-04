@@ -19,7 +19,7 @@ navbar = dbc.NavbarSimple(
             ],
         ),
     ],
-    brand="Demo",
+    brand="501 benefits APP",
     brand_href="#",
     sticky="top",
 )

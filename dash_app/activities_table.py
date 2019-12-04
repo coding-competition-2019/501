@@ -7,6 +7,8 @@ import pandas as pd
 from typing import Tuple
 from placesdata import Place
 
+from request_processing.geolocation import Geolocation
+
 
 def get_data() -> Tuple[dict, dict]:
     data = utils.read_json("data/places.json")
@@ -30,6 +32,7 @@ def get_data() -> Tuple[dict, dict]:
 def create_table(activity: str) -> dbc.Table:
 
     data, all_places = get_data()
+    # geolocation = Geolocation(find_me=True)
 
     if activity:
         first_col = f"{activity.upper()} and other activities"
@@ -41,9 +44,10 @@ def create_table(activity: str) -> dbc.Table:
             html.Tr(
                 [
                     html.Th(first_col),
-                    html.Th("Places"),
+                    html.Th("Place"),
                     html.Th("Address"),
                     html.Th("Url"),
+                    html.Th("Distance from you"),
                 ]
             )
         )
@@ -51,9 +55,12 @@ def create_table(activity: str) -> dbc.Table:
 
     table_data: list = []
     if activity in all_places["activity_list"]:
+
         for index, value in enumerate(all_places["places"][activity]):
             ###
-            # Vlad Function here (returns coordinates and distance from us. Takes html.Td(data[value][1] <- This is a place)
+            # coordinates = geolocation.get_place(data[value][1])
+            # distance = geolocation.get_distance(coordinates)
+            distance = 10000
             ###
             table_data.append(
                 html.Tr(
@@ -62,33 +69,16 @@ def create_table(activity: str) -> dbc.Table:
                         html.Td(data[value][1].name),
                         html.Td(data[value][1].street),
                         html.Td(data[value][1].url),
+                        html.Td(f"{round(distance/1000,2)}km"),
                     ]
                 )
             )
-            # table_data.append(
-            #     [
-            #         ", ".join(data[value][0]),
-            #         data[value][1].name,
-            #         data[value][1].street,
-            #         data[value][1].url,
-            #     ]
-            # )
-            if index == 100:
+            if index == 1:
                 break
     else:
-        table_data.extend([html.Td(""), html.Td("")])
-        # table_data.append([""])
+        table_data.extend([html.Td("") for _ in range(5)])
 
-    # table_data = pd.DataFrame.from_records(
-    #     table_data, columns=[first_col, "Places", "Address", "Url"]
-    # )
     table_body = [html.Tbody(table_data)]
-
-    # return dash_table.DataTable(
-    #     data=table_data,
-    #     columns=[{"id": c, "name": c} for c in table_data.columns],
-    #     style_table={"maxHeight": "300px", "overflowY": "scroll"},
-    # )
 
     return dbc.Table(
         table_header + table_body,

@@ -7,6 +7,8 @@ from layout import navbar, body
 from inputs import inputs
 from activities_table import create_table
 
+from request_processing.geolocation import Geolocation
+
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 app.layout = html.Div([navbar, body])
