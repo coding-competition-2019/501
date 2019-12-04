@@ -30,12 +30,7 @@ body = html.Div(
         dbc.Row(
             [
                 dbc.Col(
-                    [
-                        html.H2("Heading"),
-                        html.P(""),
-                        dbc.Button("View details", color="secondary"),
-                    ],
-                    md=3,
+                    [html.H2("There is always time for sport..."), html.P(""),], md=3,
                 ),
             ]
         ),

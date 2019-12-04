@@ -43,7 +43,7 @@ def update_by_input(value):
         )
     else:
         places = []
-        return create_table(places, value, {"lat": lat, "lon": lon}), mc.build_figure()
+        return create_table(places, value, {"lat": [], "lon": []}), mc.build_figure()
 
 
 if __name__ == "__main__":
