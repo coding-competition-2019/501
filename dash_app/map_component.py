@@ -47,6 +47,7 @@ def build_figure(data=None):
         mode="markers",
         marker=go.scattermapbox.Marker(size=14, color="rgb(242, 177, 172)"),
         text=["NTK"],
+        name=''
     )
 
     if data is not None:
@@ -56,6 +57,7 @@ def build_figure(data=None):
             mode="markers",
             marker=go.scattermapbox.Marker(size=14),
             text=data['names'],
+            name=''
         )
         data = [center_point, points]
         layout.mapbox['zoom'] = 6
