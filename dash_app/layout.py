@@ -38,6 +38,23 @@ body = html.Div(
                         html.P(
                             " Thank you McKinsey coding competition for giving us an opprotunity to participate in this contest!"
                         ),
+                        html.H4(
+                            "Short story about our participation:"
+                        ),
+                        html.P(
+                            "- Hey, do you want to participate in a hackathon?"
+                        ),
+                        html.P(
+                            "- Yeah, why not?"
+                        ),
+                        html.P(
+                            "- It's something related to web apps, though."
+                        ),
+                        html.P(
+                            "- But none of us has ever done that! "
+                            "*(thinks)* "
+                            "Ok, let's go."
+                        )
                     ],
                 ),
             ]
