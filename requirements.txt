@@ -8,3 +8,4 @@ black
 matplotlib
 pyyaml
 requests
+plotly

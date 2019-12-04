@@ -1,6 +1,7 @@
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+import map_component as mc
 
 from inputs import inputs
 
@@ -63,3 +64,5 @@ body = dbc.Container(
 #         html.P(id="item-clicks", className="mt-3"),
 #     ]
 # )
+
+map_component = mc.create_map_component()
