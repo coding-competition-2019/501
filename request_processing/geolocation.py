@@ -32,10 +32,10 @@ class Geolocation(object):
 
     def get_place(self, place: Union[Place, str]) -> Tuple[float, float]:
 
-        if isinstance(place, Place):
-            address = ', '.join([place.street, place.city, place.zipcode])
-        else:
+        if isinstance(place, str):
             address = place
+        else:
+            address = ', '.join([place.street, place.city, place.zipcode])
         result = self.gmap.geocode(address)[0]['geometry']['location']
 
         return result['lat'], result['lng']
@@ -43,10 +43,10 @@ class Geolocation(object):
     def get_distance(self, destination: Tuple[float, float]) -> float:
 
         result = self.gmap.distance_matrix(
-                self.me,
-                destination,
-                mode='walking'
-            )["rows"][0]["elements"][0]["distance"]["value"]
+            self.me,
+            destination,
+            mode='walking'
+        )["rows"][0]["elements"][0]["distance"]["value"]
 
         return result
 
