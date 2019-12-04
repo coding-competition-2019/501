@@ -44,7 +44,6 @@ def _update_map(value):
         lat = list()
         lon = list()
         for n, place in enumerate(data.get_places_by_activity(value)):
-            print(place.street, place.city, place.zipcode)
             la, lo = geo.get_place(place)
             lat.append(la)
             lon.append(lo)
