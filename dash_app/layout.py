@@ -25,7 +25,7 @@ navbar = dbc.NavbarSimple(
     sticky="top",
 )
 
-body = dbc.Container(
+body = html.Div(
     [
         dbc.Row(
             [
@@ -39,7 +39,10 @@ body = dbc.Container(
                 ),
             ]
         ),
-        dbc.Row(dbc.Col(html.Div(inputs), width=10)),
+        dbc.Row(
+            [dbc.Col(html.Div(inputs)), dbc.Col(html.Div(mc.create_map_component())),]
+        ),
+        # dbc.Row(),
     ],
     className="mt-4",
 )
@@ -64,5 +67,4 @@ body = dbc.Container(
 #         html.P(id="item-clicks", className="mt-3"),
 #     ]
 # )
-
-map_component = mc.create_map_component()
+# map_component = mc.create_map_component()

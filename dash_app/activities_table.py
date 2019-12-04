@@ -2,12 +2,13 @@ import dash_bootstrap_components as dbc
 import dash_html_components as html
 import utils
 
+from request_processing.geolocation import Geolocation
 from typing import Tuple
 from placesdata import Place
 
 
-def create_table(places, activity: str) -> dbc.Table:
-    # geolocation = Geolocation(find_me=True)
+def create_table(places, activity: str, coordinates) -> dbc.Table:
+    geolocation = Geolocation(find_me=True)
 
     if activity:
         first_col = f"{activity.upper()} and other activities"
@@ -35,9 +36,8 @@ def create_table(places, activity: str) -> dbc.Table:
             activities = place.activities
 
             ###
-            # coordinates = coordinates['']
-            # distance = geolocation.get_distance(coordinates)
-            distance = 10000
+            coordinate = (coordinates["lat"][index], coordinates["lon"][index])
+            distance = geolocation.get_distance(coordinate)
             ###
 
             table_data.append(
