@@ -2,6 +2,8 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
+from inputs import inputs
+
 navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink("Link", href="#")),
@@ -32,31 +34,32 @@ body = dbc.Container(
                         html.P(""),
                         dbc.Button("View details", color="secondary"),
                     ],
-                    md=4,
+                    md=3,
                 ),
             ]
-        )
+        ),
+        dbc.Row(dbc.Col(html.Div(inputs), width=10)),
     ],
     className="mt-4",
 )
 
-dropdown = html.Div(
-    [
-        dbc.DropdownMenu(
-            [
-                dbc.DropdownMenuItem("A button", id="dropdown-button"),
-                dbc.DropdownMenuItem(
-                    "Internal link", href="/l/components/dropdown_menu"
-                ),
-                dbc.DropdownMenuItem("External Link", href="https://github.com"),
-                dbc.DropdownMenuItem(
-                    "External relative",
-                    href="/l/components/dropdown_menu",
-                    external_link=True,
-                ),
-            ],
-            label="Menu",
-        ),
-        html.P(id="item-clicks", className="mt-3"),
-    ]
-)
+# dropdown = html.Div(
+#     [
+#         dbc.DropdownMenu(
+#             [
+#                 dbc.DropdownMenuItem("A button", id="dropdown-button"),
+#                 dbc.DropdownMenuItem(
+#                     "Internal link", href="/l/components/dropdown_menu"
+#                 ),
+#                 dbc.DropdownMenuItem("External Link", href="https://github.com"),
+#                 dbc.DropdownMenuItem(
+#                     "External relative",
+#                     href="/l/components/dropdown_menu",
+#                     external_link=True,
+#                 ),
+#             ],
+#             label="Menu",
+#         ),
+#         html.P(id="item-clicks", className="mt-3"),
+#     ]
+# )

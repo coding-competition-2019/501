@@ -1,6 +1,8 @@
+import dash_table
 import dash_bootstrap_components as dbc
 import dash_html_components as html
 import utils
+import pandas as pd
 
 from typing import Tuple
 from placesdata import Place
@@ -29,7 +31,23 @@ def create_table(activity: str) -> dbc.Table:
 
     data, all_places = get_data()
 
-    table_header = [html.Thead(html.Tr([html.Th("All Activities"), html.Th("Places")]))]
+    if activity:
+        first_col = f"{activity.upper()} and other activities"
+    else:
+        first_col = "Activities"
+
+    table_header = [
+        html.Thead(
+            html.Tr(
+                [
+                    html.Th(first_col),
+                    html.Th("Places"),
+                    html.Th("Address"),
+                    html.Th("Url"),
+                ]
+            )
+        )
+    ]
 
     table_data: list = []
     if activity in all_places["activity_list"]:
@@ -39,18 +57,44 @@ def create_table(activity: str) -> dbc.Table:
             ###
             table_data.append(
                 html.Tr(
-                    [html.Td(", ".join(data[value][0])), html.Td(data[value][1].name),]
+                    [
+                        html.Td(", ".join(data[value][0])),
+                        html.Td(data[value][1].name),
+                        html.Td(data[value][1].street),
+                        html.Td(data[value][1].url),
+                    ]
                 )
             )
-            if index == 5:
+            # table_data.append(
+            #     [
+            #         ", ".join(data[value][0]),
+            #         data[value][1].name,
+            #         data[value][1].street,
+            #         data[value][1].url,
+            #     ]
+            # )
+            if index == 100:
                 break
     else:
-        table_data.extend([html.Td("Activity not found"), html.Td("")])
+        table_data.extend([html.Td(""), html.Td("")])
+        # table_data.append([""])
 
+    # table_data = pd.DataFrame.from_records(
+    #     table_data, columns=[first_col, "Places", "Address", "Url"]
+    # )
     table_body = [html.Tbody(table_data)]
+
+    # return dash_table.DataTable(
+    #     data=table_data,
+    #     columns=[{"id": c, "name": c} for c in table_data.columns],
+    #     style_table={"maxHeight": "300px", "overflowY": "scroll"},
+    # )
 
     return dbc.Table(
         table_header + table_body,
         bordered=True,
-        style={"maxHeight": "300px", "overflowY": "scroll"},
+        dark=True,
+        hover=True,
+        responsive="sm",
+        striped=True,
     )
