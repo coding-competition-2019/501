@@ -58,7 +58,11 @@ def build_figure(coords=None):
             text=["NTK"],
         )
         data = [center_point, points]
+        layout.mapbox['zoom'] = 6
     else:
         data = [center_point]
+        layout.mapbox['zoom'] = DEF_ZOOM
 
-    return go.Figure(data=data, layout=layout)
+    fig = go.Figure(data=data, layout=layout)
+
+    return fig
