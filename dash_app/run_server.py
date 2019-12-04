@@ -26,7 +26,7 @@ def count_clicks(n):
     Output("activities-output", "children"), [Input("activities-input", "value")]
 )
 def output_text(value):
-    return create_table(test_table, value)
+    return create_table(value)
 
 
 if __name__ == "__main__":

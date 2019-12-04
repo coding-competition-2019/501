@@ -5,9 +5,17 @@ from dash_app.placesdata import Place
 
 class Geolocation(object):
 
+    _travel_modes = {'walking', 'bicycling', 'driving', 'transit'}
+
     def __init__(self, find_me: bool = True):
         self.gmap = get_service()
-        self.me = self.get_my_location() if find_me else None
+        self._me = self.get_my_location() if find_me else None
+
+    @property
+    def me(self):
+        if self._me is None:
+            self._me = self.get_my_location()
+        return self._me
 
     def get_my_location(
             self,
@@ -33,10 +41,7 @@ class Geolocation(object):
         return result['lat'], result['lng']
 
     def get_distance(self, destination: Tuple[float, float]) -> float:
-        
-        if self.me is None:
-            self.me = self.get_my_location()
-        
+
         result = self.gmap.distance_matrix(
                 self.me,
                 destination,
@@ -45,10 +50,26 @@ class Geolocation(object):
 
         return result
 
+    def get_navigations(self,
+                        destination: Tuple[float, float],
+                        travel_mode: str = 'driving'):
+
+        assert travel_mode in self._travel_modes
+
+        link = f'https://www.google.com/maps/dir/?api=1&' \
+               f'origin={",".join([str(item) for item in self.me])}&' \
+               f'destination={",".join([str(item) for item in destination])}&' \
+               f'travelmode={travel_mode}'
+
+        return link
+
 
 if __name__ == '__main__':
     import os
     os.chdir('..')
     gl = Geolocation(find_me=True)
     coordinates = gl.get_place(Place('', '', 'NTK', '', 'Prague'))
-    dist = gl.get_distance(coordinates)
+    print(f'My coordinates: {gl.me}')
+    print(f'NTK coordinates: {coordinates}')
+    print(f'Distance to NTK: {gl.get_distance(coordinates)}')
+    print(f'Directions to NTK: {gl.get_navigations(destination=coordinates)}')
