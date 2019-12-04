@@ -29,26 +29,10 @@ body = dbc.Container(
                 dbc.Col(
                     [
                         html.H2("Heading"),
-                        html.P(
-                            """\
-Donec id elit non mi porta gravida at eget metus.
-Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-nibh, ut fermentum massa justo sit amet risus. Etiam porta sem
-malesuada magna mollis euismod. Donec sed odio dui. Donec id elit non
-mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
-commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit
-amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed
-odio dui."""
-                        ),
+                        html.P(""),
                         dbc.Button("View details", color="secondary"),
                     ],
                     md=4,
-                ),
-                dbc.Col(
-                    [
-                        html.H2("Graph"),
-                        dcc.Graph(figure={"data": [{"x": [1, 2, 3], "y": [1, 4, 9]}]}),
-                    ]
                 ),
             ]
         )
