@@ -1,11 +1,13 @@
 from request_processing import get_service
 from typing import Tuple, Optional, Union
 from placesdata import Place
+from haversine import haversine, Unit
 
 
 class Geolocation(object):
 
     _travel_modes = {"walking", "bicycling", "driving", "transit"}
+    _dist_modes = {'google', 'haversine'}
 
     def __init__(self, find_me: bool = True):
         self.gmap = get_service()
@@ -39,11 +41,22 @@ class Geolocation(object):
 
         return result["lat"], result["lng"]
 
-    def get_distance(self, destination: Tuple[float, float]) -> float:
+    def get_distance(self, destination: Tuple[float, float],
+                     method: str = 'haversine') -> float:
 
-        result = self.gmap.distance_matrix(self.me, destination, mode="walking")[
-            "rows"
-        ][0]["elements"][0]["distance"]["value"]
+        assert method in self._dist_modes
+
+        if method == 'google':
+            result = self.gmap.distance_matrix(
+                self.me,
+                destination,
+                mode="walking"
+            )[
+                "rows"
+            ][0]["elements"][0]["distance"]["value"]
+
+        else:
+            result = haversine(self.me, destination, unit=Unit.METERS)
 
         return result
 
@@ -65,10 +78,9 @@ class Geolocation(object):
 
 if __name__ == "__main__":
     import os
-
-    os.chdir("..")
+    print(os.getcwd())
     gl = Geolocation(find_me=True)
-    coordinates = gl.get_place(Place("", "", "NTK", "", "Prague"))
+    coordinates = gl.get_place(Place("", "", "NTK", "", "Prague", ''))
     print(f"My coordinates: {gl.me}")
     print(f"NTK coordinates: {coordinates}")
     print(f"Distance to NTK: {gl.get_distance(coordinates)}")
