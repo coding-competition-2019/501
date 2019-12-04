@@ -23,7 +23,7 @@ def create_map_component():
     return graph
 
 
-def build_figure(coords=None):
+def build_figure(data=None):
     c_lat, c_lon = _get_current_coords()
     layout = go.Layout(
         title="Location with places",
@@ -34,7 +34,7 @@ def build_figure(coords=None):
         mapbox=dict(
             accesstoken=api_key,
             bearing=0,
-            center=dict(lat=c_lat, lon=c_lon,),
+            center=dict(lat=c_lat, lon=c_lon, ),
             pitch=0,
             zoom=DEF_ZOOM,
         ),
@@ -49,13 +49,13 @@ def build_figure(coords=None):
         text=["NTK"],
     )
 
-    if coords is not None:
+    if data is not None:
         points = go.Scattermapbox(
-            lat=coords["lat"],
-            lon=coords["lon"],
+            lat=data["lat"],
+            lon=data["lon"],
             mode="markers",
             marker=go.scattermapbox.Marker(size=14),
-            text=["NTK"],
+            text=data['names'],
         )
         data = [center_point, points]
         layout.mapbox['zoom'] = 6

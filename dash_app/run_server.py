@@ -39,11 +39,12 @@ def update_by_input(value):
 
         return (
             create_cards(places, value, {"lat": lat, "lon": lon}),
-            mc.build_figure({"lat": lat, "lon": lon}),
+            mc.build_figure(
+                {"lat": lat, "lon": lon, 'names': [p.name for p in places]}),
         )
     else:
         places = []
-        return create_cards(places,value, None), mc.build_figure()
+        return create_cards(places, value, None), mc.build_figure()
 
 
 if __name__ == "__main__":
