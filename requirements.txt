@@ -1,0 +1,7 @@
+numpy
+scipy
+seaborn
+dash
+dash-bootstrap-components
+black
+matplotlib
