@@ -30,7 +30,7 @@ def build_figure(coords=None):
         autosize=True,
         hovermode="closest",
         height=750,
-        margin=go.Margin(l=0, r=0, t=0, b=0),
+        margin={"r": 0, "t": 0, "l": 0, "b": 0},
         mapbox=dict(
             accesstoken=api_key,
             bearing=0,
